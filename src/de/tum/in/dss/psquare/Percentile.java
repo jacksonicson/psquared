@@ -74,7 +74,6 @@ public class Percentile {
 
 		// Check if k is set properly
 		assert (k >= 0);
-		System.out.println("x=" + x + "; k=" + k);
 
 		// Increment positions of markers k+1 through 4
 		for (k++; k < MARKERS; k++)
