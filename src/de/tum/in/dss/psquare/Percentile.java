@@ -133,19 +133,4 @@ public class Percentile {
 		System.out.println("n: " + Arrays.toString(n));
 		System.out.println("n': " + Arrays.toString(n_desired));
 	}
-
-	public static void main(String arg[]) {
-		// Create a new initial percentile calculation
-		float[] observations = { 3, 4, 5, 6, 2 };
-		Percentile p = new Percentile(0.99f, observations);
-		p.dump();
-
-		// Accept all test values
-		float[] test = { 4, 6, 3, 21, 3, 4, 4, 5, 4, 2, 3, 45, 2, 34, 5, 6, 67 };
-		for (float t : test) {
-			System.out.println("p=" + p.accept(t));
-			p.dump();
-		}
-	}
-
 }
