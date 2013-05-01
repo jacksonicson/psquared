@@ -114,8 +114,10 @@ public class Percentile {
 
 	float parabolic(int d, int i) {
 		float a = q[i] + d / (n[i + 1] - n[i - 1]);
-		float b = (n[i] - n[i - 1] + d) * (q[i + 1] - q[i]) / (q[i + 1] - n[i])
+		
+		float b = (n[i] - n[i - 1] + d) * (q[i + 1] - q[i]) / (n[i + 1] - n[i])
 				+ (n[i + 1] - n[i] - d) * (q[i] - q[i - 1]) / (n[i] - n[i - 1]);
+		
 		return a * b;
 	}
 
