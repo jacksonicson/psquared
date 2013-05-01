@@ -6,6 +6,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ TestPercentileCreation.class, TestPercentile.class })
-public class PercentileSuite {
+public class PSquaredSuite {
 
 }

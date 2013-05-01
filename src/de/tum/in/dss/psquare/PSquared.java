@@ -2,7 +2,7 @@ package de.tum.in.dss.psquare;
 
 import java.util.Arrays;
 
-public class Percentile {
+public class PSquared {
 
 	final int MARKERS = 5;
 
@@ -21,7 +21,7 @@ public class Percentile {
 	// Precalculated desired marker increments
 	float[] dn = new float[MARKERS];
 
-	public Percentile(float p, float[] observations) {
+	public PSquared(float p, float[] observations) {
 		// Set percentile
 		this.p = p;
 

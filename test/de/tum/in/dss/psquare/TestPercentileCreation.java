@@ -8,7 +8,7 @@ public class TestPercentileCreation {
 
 	@Test
 	public void testCreation() {
-		Percentile p = new Percentile(0.99f, initialObservations);
+		PSquared p = new PSquared(0.99f, initialObservations);
 		p.dump();
 	}
 
