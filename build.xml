@@ -1,0 +1,20 @@
+<project name="P-Squared" default="main" basedir=".">
+
+	<target name="prepare">
+		<delete dir="build" />
+		<mkdir dir="build"/>
+	</target>
+
+	<target name="build">
+		<javac srcdir="src" debug="false" destdir="build">
+		</javac>
+	</target>
+	
+	<target name="package">
+		<jar destfile="psquared.jar" basedir="build">
+		</jar>
+	</target>
+
+	<target name="main" depends="prepare, build, package" />
+
+</project>

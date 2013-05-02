@@ -1,2 +1,5 @@
 *.class
+
 bin
+build
+psquared.jar
