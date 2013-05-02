@@ -9,6 +9,9 @@ public class PSquared {
 	// Percentile to find
 	final float p;
 
+	// Last percentile value
+	float pValue;
+
 	// Initial observations
 	float[] initial = new float[MARKERS];
 	int initialCount = 0;
@@ -38,8 +41,8 @@ public class PSquared {
 		// Set initialized flag
 		initialized = true;
 
-		System.out.println("initializing"); 
-		
+		System.out.println("initializing");
+
 		// Process initial observations
 		for (int i = 0; i < MARKERS; i++) {
 			// Set initial marker heights
@@ -79,7 +82,7 @@ public class PSquared {
 	public float accept(float x) {
 		// Still recording initial values
 		if (!initialized) {
-			if(!acceptInitial(x))
+			if (!acceptInitial(x))
 				return 0;
 		}
 
@@ -135,7 +138,13 @@ public class PSquared {
 
 		}
 
+		// Set current percentile value for later retrieval
+		pValue = q[2];
 		return q[2];
+	}
+
+	public float getPValue() {
+		return pValue;
 	}
 
 	float linear(int d, int i) {
