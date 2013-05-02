@@ -14,12 +14,16 @@ public class PSquared {
 
 	// Marker positions
 	int[] n = new int[MARKERS];
+	int[] n_test = new int[MARKERS];
 
 	// Desired marker positions
 	float[] n_desired = new float[MARKERS];
 
 	// Precalculated desired marker increments
 	float[] dn = new float[MARKERS];
+
+	// Last k value
+	int lastK;
 
 	public PSquared(float p, float[] observations) {
 		// Set percentile
@@ -68,38 +72,44 @@ public class PSquared {
 			k = 3;
 		else if (q[4] < x) {
 			// Update maximum value
+			System.out.println("update max " + x);
 			q[4] = x;
 			k = 3;
 		}
 
 		// Check if k is set properly
 		assert (k >= 0);
+		lastK = k;
 
-		// Increment positions of markers k+1 through 4
-		for (k++; k < MARKERS; k++)
-			n[k]++;
+		// Increment all positions starting at marker k+1
+		for (int i = k + 1; i < MARKERS; i++)
+			n[i]++;
 
 		// Update desired marker positions
 		for (int i = 0; i < MARKERS; i++)
 			n_desired[i] += dn[i];
 
+		// Backup n for testing
+		System.arraycopy(n, 0, n_test, 0, n.length);
+
 		// Adjust marker heights 2-4 if necessary
 		for (int i = 1; i < MARKERS - 1; i++) {
 			float d = n_desired[i] - n[i];
 
-			if ((d >= 1 && (n[i + 1] - n[i]) > 1)
-					|| (d <= -1 && (n[i - 1] - n[i]) < -1)) {
+			if ((d >= 1 && (n[i + 1] - n[i]) > 1) || (d <= -1 && (n[i - 1] - n[i]) < -1)) {
 				int ds = sign(d);
 
-				// Try adjusting q using P^2 formula
-				float tmp = parabolic(ds, i);
-				if (q[i - 1] < tmp && tmp < q[i + 1])
+				System.out.println("adjusting marker " + i + " with " + ds);
+
+				// Try adjusting q using P-squared formula
+				float tmp = (float) parabolic(ds, i);
+				if (q[i - 1] < tmp && tmp < q[i + 1]) {
 					q[i] = tmp;
-				else {
+				} else {
 					q[i] = linear(ds, i);
 				}
 
-				n[i] += ds; // or d? TODO: Check
+				n[i] += ds;
 			}
 
 		}
@@ -111,23 +121,24 @@ public class PSquared {
 		return q[i] + d * (q[i + d] - q[i]) / (n[i + d] - n[i]);
 	}
 
-	float parabolic(int d, int i) {
-		float a = q[i] + d / (n[i + 1] - n[i - 1]);
-		
-		float b = (n[i] - n[i - 1] + d) * (q[i + 1] - q[i]) / (n[i + 1] - n[i])
-				+ (n[i + 1] - n[i] - d) * (q[i] - q[i - 1]) / (n[i] - n[i - 1]);
-		
-		return a * b;
+	double parabolic(float d, int i) {
+		double a = (double) d / (double)(n[i + 1] - n[i - 1]);
+
+		double b = (double) (n[i] - n[i - 1] + d) * (q[i + 1] - q[i]) / (double) (n[i + 1] - n[i])
+				+ (double) (n[i + 1] - n[i] - d) * (q[i] - q[i - 1]) / (double) (n[i] - n[i - 1]);
+
+		return (double) q[i] + a * (int)b;
 	}
 
 	int sign(float d) {
-		if (d > 0)
+		if (d >= 0)
 			return 1;
-		else
-			return -1;
+
+		return -1;
 	}
 
 	void dump() {
+		System.out.println("k: " + lastK);
 		System.out.println("q: " + Arrays.toString(q));
 		System.out.println("n: " + Arrays.toString(n));
 		System.out.println("n': " + Arrays.toString(n_desired));
