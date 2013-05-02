@@ -148,7 +148,7 @@ public class PSquared {
 		double b = (double) (n[i] - n[i - 1] + d) * (q[i + 1] - q[i]) / (double) (n[i + 1] - n[i])
 				+ (double) (n[i + 1] - n[i] - d) * (q[i] - q[i - 1]) / (double) (n[i] - n[i - 1]);
 
-		return (double) q[i] + a * (int) b;
+		return (double) q[i] + a * b;
 	}
 
 	int sign(float d) {
