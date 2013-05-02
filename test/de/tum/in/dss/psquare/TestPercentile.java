@@ -25,7 +25,7 @@ public class TestPercentile {
 		float[] test = randomTestData(100, 10000);
 		for (float value : test) {
 			double p = psquared.accept(value);
-			Assert.assertTrue(p > 0);
+			Assert.assertTrue(p >= 0);
 		}
 	}
 
