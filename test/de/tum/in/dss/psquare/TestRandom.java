@@ -17,6 +17,17 @@ public class TestRandom {
 		return test;
 	}
 
+	private float getApacheMathPercentile(float percentile, float[] test) {
+		org.apache.commons.math3.stat.descriptive.rank.Percentile p2 = new org.apache.commons.math3.stat.descriptive.rank.Percentile(
+				percentile * 100);
+
+		double[] dall = new double[test.length];
+		for (int i = 0; i < test.length; i++)
+			dall[i] = test[i];
+
+		return (float) p2.evaluate(dall);
+	}
+
 	@Test
 	public void testAccept() {
 		PSquared psquared = new PSquared(0.99f);
@@ -27,25 +38,20 @@ public class TestRandom {
 		}
 	}
 
-	private void runWithPercentile(float ptest, float[] test) {
-		PSquared psquared = new PSquared(ptest);
-		double ps = 0;
-		for (float value : test) {
-			ps = psquared.accept(value);
-		}
-
-		//
-		org.apache.commons.math3.stat.descriptive.rank.Percentile p2 = new org.apache.commons.math3.stat.descriptive.rank.Percentile(
-				ptest * 100);
-		double[] dall = new double[test.length];
-		for (int i = 0; i < test.length; i++)
-			dall[i] = test[i];
-		double apache = p2.evaluate(dall);
-
-		System.out.println(ptest + ": with " + test.length + " got: " + apache + " - " + ps);
-		double max = Math.max(apache, ps);
-		double percentage = Math.abs(apache - ps) / max;
+	private void assertValues(float a, float b) {
+		double max = Math.max(a, b);
+		double percentage = Math.abs(a - b) / max;
 		Assert.assertTrue(percentage < 0.01);
+	}
+
+	private void runWithPercentile(float percentile, float[] test) {
+		PSquared psquared = new PSquared(percentile);
+		float p2value = 0;
+		for (float value : test)
+			p2value = psquared.accept(value);
+
+		float amValue = getApacheMathPercentile(percentile, test);
+		assertValues(p2value, amValue);
 	}
 
 	@Test

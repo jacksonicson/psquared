@@ -76,7 +76,7 @@ public class PSquared {
 		return true;
 	}
 
-	public double accept(float x) {
+	public float accept(float x) {
 		// Still recording initial values
 		if (!initialized) {
 			if(!acceptInitial(x))
