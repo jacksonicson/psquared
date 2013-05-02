@@ -6,11 +6,8 @@ import org.junit.Test;
 
 public class TestPaper {
 
-	// Initial observations in the paper by Jain and Chlamtac
-	private final float[] initialObservations = { 0.02f, 0.15f, 0.74f, 0.83f, 3.39f};
-
-	// Observations in the paper
-	private final float[] observations = { 22.37f, 10.15f, 15.43f, 38.62f, 15.92f, 34.60f, 10.28f, 1.47f, 0.40f, 0.05f,
+	// Observations reported in the paper
+	private final float[] observations = { 0.02f, 0.15f, 0.74f, 0.83f, 3.39f, 22.37f, 10.15f, 15.43f, 38.62f, 15.92f, 34.60f, 10.28f, 1.47f, 0.40f, 0.05f,
 			11.39f, 0.27f, 0.42f, 0.09f, 11.37f };
 
 	// Percentile to estimate
@@ -18,11 +15,11 @@ public class TestPaper {
 
 	@Test
 	public void testPaperCalculation() {
-		PSquared psquared = new PSquared(pvalue, initialObservations);
+		PSquared psquared = new PSquared(pvalue);
 		psquared.dump();
 
 		double ps = 0;
-		int run = 6;
+		int run = 0;
 		for (float value : observations) {
 			System.out.println("- observation: " + (run));
 			ps = psquared.accept(value);

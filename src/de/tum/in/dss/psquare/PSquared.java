@@ -9,12 +9,16 @@ public class PSquared {
 	// Percentile to find
 	final float p;
 
+	// Initial observations
+	float[] initial = new float[MARKERS];
+	int initialCount = 0;
+	boolean initialized = false;
+
 	// Marker heights
 	float[] q = new float[MARKERS];
 
 	// Marker positions
 	int[] n = new int[MARKERS];
-	int[] n_test = new int[MARKERS];
 
 	// Desired marker positions
 	float[] n_desired = new float[MARKERS];
@@ -25,17 +29,21 @@ public class PSquared {
 	// Last k value
 	int lastK;
 
-	public PSquared(float p, float[] observations) {
+	public PSquared(float p) {
 		// Set percentile
 		this.p = p;
+	}
 
-		// Check initial observation size
-		assert (observations.length == MARKERS);
+	private void init() {
+		// Set initialized flag
+		initialized = true;
 
+		System.out.println("initializing"); 
+		
 		// Process initial observations
 		for (int i = 0; i < MARKERS; i++) {
 			// Set initial marker heights
-			q[i] = observations[i];
+			q[i] = initial[i];
 
 			// Initial marker positions
 			n[i] = i;
@@ -56,7 +64,24 @@ public class PSquared {
 		dn[4] = 1;
 	}
 
+	private void acceptInitial(float x) {
+		if (initialCount < MARKERS) {
+			initial[initialCount++] = x;
+			return;
+		}
+
+		// Enough values available
+		Arrays.sort(initial);
+		init();
+	}
+
 	public double accept(float x) {
+		// Still recording initial values
+		if (!initialized) {
+			acceptInitial(x);
+			return 0;
+		}
+
 		int k = -1;
 		if (x < q[0]) {
 			// Update minimum value
@@ -89,17 +114,12 @@ public class PSquared {
 		for (int i = 0; i < MARKERS; i++)
 			n_desired[i] += dn[i];
 
-		// Backup n for testing
-		System.arraycopy(n, 0, n_test, 0, n.length);
-
 		// Adjust marker heights 2-4 if necessary
 		for (int i = 1; i < MARKERS - 1; i++) {
 			float d = n_desired[i] - n[i];
 
 			if ((d >= 1 && (n[i + 1] - n[i]) > 1) || (d <= -1 && (n[i - 1] - n[i]) < -1)) {
 				int ds = sign(d);
-
-				System.out.println("adjusting marker " + i + " with " + ds);
 
 				// Try adjusting q using P-squared formula
 				float tmp = (float) parabolic(ds, i);
@@ -122,12 +142,12 @@ public class PSquared {
 	}
 
 	double parabolic(float d, int i) {
-		double a = (double) d / (double)(n[i + 1] - n[i - 1]);
+		double a = (double) d / (double) (n[i + 1] - n[i - 1]);
 
 		double b = (double) (n[i] - n[i - 1] + d) * (q[i + 1] - q[i]) / (double) (n[i + 1] - n[i])
 				+ (double) (n[i + 1] - n[i] - d) * (q[i] - q[i - 1]) / (double) (n[i] - n[i - 1]);
 
-		return (double) q[i] + a * (int)b;
+		return (double) q[i] + a * (int) b;
 	}
 
 	int sign(float d) {
@@ -138,6 +158,7 @@ public class PSquared {
 	}
 
 	void dump() {
+		System.out.println("initial: " + Arrays.toString(initial));
 		System.out.println("k: " + lastK);
 		System.out.println("q: " + Arrays.toString(q));
 		System.out.println("n: " + Arrays.toString(n));

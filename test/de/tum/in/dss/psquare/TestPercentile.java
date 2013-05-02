@@ -8,7 +8,6 @@ import org.junit.Test;
 
 public class TestPercentile {
 
-	private final float[] initialObservations = { 3, 4, 5, 6, 2 };
 	private final float pvalue = 0.99f;
 
 	private float[] randomTestData(int factor, int values) {
@@ -22,7 +21,7 @@ public class TestPercentile {
 
 	@Test
 	public void testAccept() {
-		PSquared psquared = new PSquared(pvalue, initialObservations);
+		PSquared psquared = new PSquared(pvalue);
 		float[] test = randomTestData(100, 10000);
 		for (float value : test) {
 			double p = psquared.accept(value);
@@ -31,7 +30,7 @@ public class TestPercentile {
 	}
 
 	private void runWithPercentile(float ptest, float[] test) {
-		PSquared psquared = new PSquared(ptest, initialObservations);
+		PSquared psquared = new PSquared(ptest);
 		double ps = 0;
 		for (float value : test) {
 			ps = psquared.accept(value);
@@ -40,11 +39,9 @@ public class TestPercentile {
 		//
 		org.apache.commons.math3.stat.descriptive.rank.Percentile p2 = new org.apache.commons.math3.stat.descriptive.rank.Percentile(
 				ptest * 100);
-		double[] dall = new double[initialObservations.length + test.length];
-		for (int i = 0; i < initialObservations.length; i++)
-			dall[i] = initialObservations[i];
+		double[] dall = new double[test.length];
 		for (int i = 0; i < test.length; i++)
-			dall[initialObservations.length + i] = test[i];
+			dall[i] = test[i];
 		double apache = p2.evaluate(dall);
 
 		System.out.println(ptest + ": with " + test.length + " got: " + apache
