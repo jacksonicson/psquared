@@ -7,8 +7,8 @@ import org.junit.Test;
 public class TestPaper {
 
 	// Observations reported in the paper
-	private final float[] observations = { 0.02f, 0.15f, 0.74f, 0.83f, 3.39f, 22.37f, 10.15f, 15.43f, 38.62f, 15.92f, 34.60f, 10.28f, 1.47f, 0.40f, 0.05f,
-			11.39f, 0.27f, 0.42f, 0.09f, 11.37f };
+	private final float[] observations = { 0.02f, 0.15f, 0.74f, 0.83f, 3.39f, 22.37f, 10.15f, 15.43f, 38.62f, 15.92f,
+			34.60f, 10.28f, 1.47f, 0.40f, 0.05f, 11.39f, 0.27f, 0.42f, 0.09f, 11.37f };
 
 	// Percentile to estimate
 	private final float pvalue = 0.5f;
@@ -19,7 +19,7 @@ public class TestPaper {
 
 		double ps = 0;
 		int run = 1;
-		
+
 		for (float value : observations) {
 			System.out.println("--- observation: " + (run));
 			ps = psquared.accept(value);
@@ -29,7 +29,7 @@ public class TestPaper {
 			run++;
 		}
 
-		System.out.println("estimated percentile: " + ps);
+		System.out.println("Estimated percentile: " + ps);
 	}
 
 	private void testRun(int run, int[] positions, float[] desired, float[] height) {
@@ -46,13 +46,13 @@ public class TestPaper {
 			Assert.assertTrue(test(2.5f, desired[2]));
 			Assert.assertTrue(test(3.75f, desired[3]));
 			Assert.assertTrue(test(5f, desired[4]));
-			
+
 			Assert.assertTrue(test(0.02f, height[0]));
 			Assert.assertTrue(test(0.15f, height[1]));
 			Assert.assertTrue(test(0.74f, height[2]));
 			Assert.assertTrue(test(0.83f, height[3]));
 			Assert.assertTrue(test(22.37f, height[4]));
-			
+
 			break;
 
 		case 7:
@@ -67,7 +67,7 @@ public class TestPaper {
 			Assert.assertTrue(test(3f, desired[2]));
 			Assert.assertTrue(test(4.5f, desired[3]));
 			Assert.assertTrue(test(6f, desired[4]));
-			
+
 			Assert.assertTrue(test(0.02f, height[0]));
 			Assert.assertTrue(test(0.15f, height[1]));
 			Assert.assertTrue(test(0.74f, height[2]));
@@ -87,7 +87,7 @@ public class TestPaper {
 			Assert.assertTrue(test(3.5f, desired[2]));
 			Assert.assertTrue(test(5.25f, desired[3]));
 			Assert.assertTrue(test(7f, desired[4]));
-			
+
 			Assert.assertTrue(test(0.02f, height[0]));
 			Assert.assertTrue(test(0.15f, height[1]));
 			Assert.assertTrue(test(2.18f, height[2]));
@@ -107,7 +107,7 @@ public class TestPaper {
 			Assert.assertTrue(test(4f, desired[2]));
 			Assert.assertTrue(test(6f, desired[3]));
 			Assert.assertTrue(test(8f, desired[4]));
-			
+
 			Assert.assertTrue(test(0.02f, height[0]));
 			Assert.assertTrue(test(0.87f, height[1]));
 			Assert.assertTrue(test(4.75f, height[2]));
@@ -127,7 +127,7 @@ public class TestPaper {
 			Assert.assertTrue(test(4.5f, desired[2]));
 			Assert.assertTrue(test(6.75f, desired[3]));
 			Assert.assertTrue(test(9f, desired[4]));
-			
+
 			Assert.assertTrue(test(0.02f, height[0]));
 			Assert.assertTrue(test(0.87f, height[1]));
 			Assert.assertTrue(test(4.75f, height[2]));
@@ -147,7 +147,7 @@ public class TestPaper {
 			Assert.assertTrue(test(5f, desired[2]));
 			Assert.assertTrue(test(7.5f, desired[3]));
 			Assert.assertTrue(test(10f, desired[4]));
-			
+
 			Assert.assertTrue(test(0.02f, height[0]));
 			Assert.assertTrue(test(0.87f, height[1]));
 			Assert.assertTrue(test(9.28f, height[2]));
@@ -167,7 +167,7 @@ public class TestPaper {
 			Assert.assertTrue(test(5.5f, desired[2]));
 			Assert.assertTrue(test(8.25f, desired[3]));
 			Assert.assertTrue(test(11f, desired[4]));
-			
+
 			Assert.assertTrue(test(0.02f, height[0]));
 			Assert.assertTrue(test(0.87f, height[1]));
 			Assert.assertTrue(test(9.28f, height[2]));
@@ -187,7 +187,7 @@ public class TestPaper {
 			Assert.assertTrue(test(6f, desired[2]));
 			Assert.assertTrue(test(9f, desired[3]));
 			Assert.assertTrue(test(12f, desired[4]));
-			
+
 			Assert.assertTrue(test(0.02f, height[0]));
 			Assert.assertTrue(test(2.14f, height[1]));
 			Assert.assertTrue(test(9.28f, height[2]));
@@ -207,7 +207,7 @@ public class TestPaper {
 			Assert.assertTrue(test(6.5f, desired[2]));
 			Assert.assertTrue(test(9.75f, desired[3]));
 			Assert.assertTrue(test(13f, desired[4]));
-			
+
 			Assert.assertTrue(test(0.02f, height[0]));
 			Assert.assertTrue(test(2.14f, height[1]));
 			Assert.assertTrue(test(9.28f, height[2]));
@@ -227,7 +227,7 @@ public class TestPaper {
 			Assert.assertTrue(test(7f, desired[2]));
 			Assert.assertTrue(test(10.5f, desired[3]));
 			Assert.assertTrue(test(14f, desired[4]));
-			
+
 			Assert.assertTrue(test(0.02f, height[0]));
 			Assert.assertTrue(test(0.74f, height[1]));
 			Assert.assertTrue(test(6.30f, height[2]));
@@ -247,7 +247,7 @@ public class TestPaper {
 			Assert.assertTrue(test(7.5f, desired[2]));
 			Assert.assertTrue(test(11.25f, desired[3]));
 			Assert.assertTrue(test(15f, desired[4]));
-			
+
 			Assert.assertTrue(test(0.02f, height[0]));
 			Assert.assertTrue(test(0.74f, height[1]));
 			Assert.assertTrue(test(6.30f, height[2]));
@@ -267,7 +267,7 @@ public class TestPaper {
 			Assert.assertTrue(test(8f, desired[2]));
 			Assert.assertTrue(test(12f, desired[3]));
 			Assert.assertTrue(test(16f, desired[4]));
-			
+
 			Assert.assertTrue(test(0.02f, height[0]));
 			Assert.assertTrue(test(0.59f, height[1]));
 			Assert.assertTrue(test(6.30f, height[2]));
@@ -287,7 +287,7 @@ public class TestPaper {
 			Assert.assertTrue(test(8.5f, desired[2]));
 			Assert.assertTrue(test(12.75f, desired[3]));
 			Assert.assertTrue(test(17f, desired[4]));
-			
+
 			Assert.assertTrue(test(0.02f, height[0]));
 			Assert.assertTrue(test(0.59f, height[1]));
 			Assert.assertTrue(test(6.30f, height[2]));
@@ -307,7 +307,7 @@ public class TestPaper {
 			Assert.assertTrue(test(9f, desired[2]));
 			Assert.assertTrue(test(13.5f, desired[3]));
 			Assert.assertTrue(test(18f, desired[4]));
-			
+
 			Assert.assertTrue(test(0.02f, height[0]));
 			Assert.assertTrue(test(0.50f, height[1]));
 			Assert.assertTrue(test(4.44f, height[2]));
@@ -327,7 +327,7 @@ public class TestPaper {
 			Assert.assertTrue(test(9.5f, desired[2]));
 			Assert.assertTrue(test(14.25f, desired[3]));
 			Assert.assertTrue(test(19f, desired[4]));
-			
+
 			Assert.assertTrue(test(0.02f, height[0]));
 			Assert.assertTrue(test(0.50f, height[1]));
 			Assert.assertTrue(test(4.44f, height[2]));

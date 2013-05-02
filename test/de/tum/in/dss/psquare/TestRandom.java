@@ -6,9 +6,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-public class TestPercentile {
-
-	private final float pvalue = 0.99f;
+public class TestRandom {
 
 	private float[] randomTestData(int factor, int values) {
 		float[] test = new float[values];
@@ -21,7 +19,7 @@ public class TestPercentile {
 
 	@Test
 	public void testAccept() {
-		PSquared psquared = new PSquared(pvalue);
+		PSquared psquared = new PSquared(0.99f);
 		float[] test = randomTestData(100, 10000);
 		for (float value : test) {
 			double p = psquared.accept(value);
@@ -44,8 +42,7 @@ public class TestPercentile {
 			dall[i] = test[i];
 		double apache = p2.evaluate(dall);
 
-		System.out.println(ptest + ": with " + test.length + " got: " + apache
-				+ " - " + ps);
+		System.out.println(ptest + ": with " + test.length + " got: " + apache + " - " + ps);
 		double max = Math.max(apache, ps);
 		double percentage = Math.abs(apache - ps) / max;
 		Assert.assertTrue(percentage < 0.01);

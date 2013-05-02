@@ -123,7 +123,7 @@ public class PSquared {
 				int ds = sign(d);
 
 				// Try adjusting q using P-squared formula
-				float tmp = (float) parabolic(ds, i);
+				float tmp = parabolic(ds, i);
 				if (q[i - 1] < tmp && tmp < q[i + 1]) {
 					q[i] = tmp;
 				} else {
@@ -142,13 +142,13 @@ public class PSquared {
 		return q[i] + d * (q[i + d] - q[i]) / (n[i + d] - n[i]);
 	}
 
-	double parabolic(float d, int i) {
-		double a = (double) d / (double) (n[i + 1] - n[i - 1]);
+	float parabolic(float d, int i) {
+		float a = (float) d / (float) (n[i + 1] - n[i - 1]);
 
-		double b = (double) (n[i] - n[i - 1] + d) * (q[i + 1] - q[i]) / (double) (n[i + 1] - n[i])
-				+ (double) (n[i + 1] - n[i] - d) * (q[i] - q[i - 1]) / (double) (n[i] - n[i - 1]);
+		float b = (float) (n[i] - n[i - 1] + d) * (q[i + 1] - q[i]) / (float) (n[i + 1] - n[i])
+				+ (float) (n[i + 1] - n[i] - d) * (q[i] - q[i - 1]) / (float) (n[i] - n[i - 1]);
 
-		return (double) q[i] + a * b;
+		return (float) q[i] + a * b;
 	}
 
 	int sign(float d) {
