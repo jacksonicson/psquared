@@ -64,22 +64,23 @@ public class PSquared {
 		dn[4] = 1;
 	}
 
-	private void acceptInitial(float x) {
+	private boolean acceptInitial(float x) {
 		if (initialCount < MARKERS) {
 			initial[initialCount++] = x;
-			return;
+			return false;
 		}
 
 		// Enough values available
 		Arrays.sort(initial);
 		init();
+		return true;
 	}
 
 	public double accept(float x) {
 		// Still recording initial values
 		if (!initialized) {
-			acceptInitial(x);
-			return 0;
+			if(!acceptInitial(x))
+				return 0;
 		}
 
 		int k = -1;

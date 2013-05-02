@@ -16,17 +16,16 @@ public class TestPaper {
 	@Test
 	public void testPaperCalculation() {
 		PSquared psquared = new PSquared(pvalue);
-		psquared.dump();
 
 		double ps = 0;
-		int run = 0;
+		int run = 1;
+		
 		for (float value : observations) {
-			System.out.println("- observation: " + (run));
+			System.out.println("--- observation: " + (run));
 			ps = psquared.accept(value);
 			psquared.dump();
 
 			testRun(run, psquared.n, psquared.n_desired);
-
 			run++;
 		}
 
