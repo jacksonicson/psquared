@@ -70,6 +70,7 @@ public class PSquared {
 	private boolean acceptInitial(float x) {
 		if (initialCount < MARKERS) {
 			initial[initialCount++] = x;
+			Arrays.sort(initial, 0, initialCount);
 			return false;
 		}
 
@@ -79,11 +80,18 @@ public class PSquared {
 		return true;
 	}
 
+	private float initialSetPercentile() {
+		int n = (int) (p * (float) initialCount);
+		return initial[n];
+	}
+
 	public float accept(float x) {
 		// Still recording initial values
 		if (!initialized) {
-			if (!acceptInitial(x))
-				return 0;
+			if (!acceptInitial(x)) {
+				pValue = initialSetPercentile();
+				return pValue;
+			}
 		}
 
 		int k = -1;
