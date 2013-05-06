@@ -41,8 +41,6 @@ public class PSquared {
 		// Set initialized flag
 		initialized = true;
 
-		System.out.println("initializing");
-
 		// Process initial observations
 		for (int i = 0; i < MARKERS; i++) {
 			// Set initial marker heights
@@ -109,7 +107,6 @@ public class PSquared {
 			k = 3;
 		else if (q[4] < x) {
 			// Update maximum value
-			System.out.println("update max " + x);
 			q[4] = x;
 			k = 3;
 		}
